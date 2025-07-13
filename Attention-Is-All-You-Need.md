@@ -2,6 +2,7 @@
 **Authors:** Vaswani et al. (2017)  
 **Published at:** NeurIPS 2017
 **Citations:** 180k+  
+**🔗 Paper:** [Attention Is All You Need (arXiv)](https://arxiv.org/abs/1706.03762)
 
 
 INDEX
@@ -46,17 +47,19 @@ Each is composed of **N = 6 identical layers** including:
 ---
 # Complete Architecture
 
+- **Input**
+    - ⮕ *Embedding + Positional Encoding*
+- **Encoder (6 layers)**
+    - ⮕ Outputs Encoder Representations
+- **Decoder (6 layers)**
+    - ⮕ Uses encoder output + masked attention
+- **Linear Layer**
+    - ⮕ Maps to vocabulary size
+- **Softmax**
+    - ⮕ Produces final output probabilities
+      
 
-Input → [Embedding + Positional Encoding]
-      → Encoder (6 layers)
-            ↓
-        Encoder Output
-            ↓
-      → Decoder (6 layers)
-            ↓
-      → Linear + Softmax → Output
-
-
+---
 
 ###  COMPONENT 1: Input Embedding + Positional Encoding
 
@@ -69,7 +72,11 @@ Input → [Embedding + Positional Encoding]
 
 - Since there's no recurrence or convolution ,a **sinusoidal positional encoding** is added to the input embedding to give each token **a sense of its position** in the sequence.
 
-$$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right) $$$$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
+
+$$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right) $$
+
+$$PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_{model}}}\right)$$
+
 where:
 - `pos` is the position
 - `i` is the dimension
